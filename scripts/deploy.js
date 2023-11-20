@@ -9,14 +9,6 @@ async function main() {
   console.log(
       `Counter contract deployed ${AzaToken.target}`
   );
-
-  // Set the logo URL after deployment
-  const logoURL = 'https://github.com/azackmatoff/aza-token/blob/main/aza.json';
-  await AzaToken.setLogo(logoURL);
-
-  console.log(`AzaToken deployed to:', ${AzaToken.target}`);
-  console.log(`Logo URL set to:, ${logoURL}`);
-   
  
 }
 

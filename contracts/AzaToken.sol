@@ -15,8 +15,6 @@ contract AzaToken is ERC20, Ownable, ReentrancyGuard {
 
     event GasFeeSet(uint256 gasFee);
 
-    // Mapping to track whether cashback was sent for a specific transaction
-    mapping(address => mapping(uint256 => bool)) public cashbackSent;
 
     event TokenSentWithCashback(address indexed from, address indexed to, uint256 value, uint256 cashback);
 
@@ -31,7 +29,7 @@ contract AzaToken is ERC20, Ownable, ReentrancyGuard {
     }
 
     modifier hasEnoughMATIC() {
-        require(balanceOf(msg.sender) >= 0.05 * 10**18, "Insufficient MATIC for transaction fees");
+        require(balanceOf(msg.sender) >= gasFee, "Insufficient MATIC for transaction fees");
         _;
     }
 
@@ -56,13 +54,12 @@ contract AzaToken is ERC20, Ownable, ReentrancyGuard {
     constructor() ERC20("AzaToken", "AZT") Ownable() {
         _mint(msg.sender, TOTAL_SUPPLY);
         cashbackPercentage = 5; // Set initial cashback percentage to 5%
+        gasFee = 25000000000000000; // Set gasFee to represent 0.0025
     }
-
 
     function lockCashbackAddress() external onlyOwner noReentrancy notFrozen {
         _cashbackAddressLockExpiration = block.timestamp + 1 days;
     }
-
 
     function send(address to, uint256 value) external
         onlyValidAddress(to)
@@ -70,14 +67,17 @@ contract AzaToken is ERC20, Ownable, ReentrancyGuard {
         onlyValidValue(value)
         noReentrancy
         notFrozen
-        hasEnoughMATIC
+        hasEnoughMATIC() 
     {
-        // Transfer tokens to the recipient
         _transfer(msg.sender, to, value);
     }
 
-    function setGasFee(uint256 _gasFee) external onlyOwner noReentrancy notFrozen{
-        gasFee = _gasFee;
+    function setGasFee(uint256 _gasFee) external onlyOwner noReentrancy notFrozen {
+        gasFee = _gasFee * 10**15; // Set gasFee to represent 0.00xx
         emit GasFeeSet(gasFee);
+    }
+
+    function getGasFee() external view returns (uint256) {
+        return gasFee;
     }
 }

@@ -3,7 +3,7 @@ require('dotenv').config();
 // require("@nomicfoundation/hardhat-ethers");
 // require("@nomiclabs/hardhat-etherscan");
 
-const {API_URL, PRIVATE_KEY, MATIC_MAINNET_URL, MAINNET_PRIVATE_KEY, POLYGONSCAN_API_KEY} = process.env;
+const {ALCHEMY_URL, PRIVATE_KEY, MATIC_MAINNET_URL, MAINNET_PRIVATE_KEY, POLYGONSCAN_API_KEY} = process.env;
 
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
@@ -19,7 +19,7 @@ module.exports = {
   },
   networks: {
     mumbai: {
-      url: API_URL,
+      url: ALCHEMY_URL,
       accounts: [`0x${PRIVATE_KEY}`],
     },
     matic: {
