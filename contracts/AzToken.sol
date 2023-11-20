@@ -5,7 +5,7 @@ import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 
-contract AzaToken is ERC20, Ownable, ReentrancyGuard {
+contract AzToken is ERC20, Ownable, ReentrancyGuard {
     uint256 public constant TOTAL_SUPPLY = 21000000 * 10**18; // 18 decimals
     uint256 public cashbackPercentage;
     uint256 private _cashbackAddressLockExpiration;
@@ -51,7 +51,7 @@ contract AzaToken is ERC20, Ownable, ReentrancyGuard {
         _;
     }
 
-    constructor() ERC20("AzaToken", "AZT") Ownable() {
+    constructor() ERC20("AzToken", "ACK") Ownable() {
         _mint(msg.sender, TOTAL_SUPPLY);
         cashbackPercentage = 5; // Set initial cashback percentage to 5%
         gasFee = 25000000000000000; // Set gasFee to represent 0.0025

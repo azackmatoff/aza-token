@@ -3,11 +3,11 @@ const hre = require("hardhat");
 
 async function main() {
 
-  const AzaToken = await hre.ethers.deployContract("AzaToken");
+  const AzToken = await hre.ethers.deployContract("AzToken");
  
-  await AzaToken.waitForDeployment();
+  await AzToken.waitForDeployment();
   console.log(
-      `Counter contract deployed ${AzaToken.target}`
+      `Counter contract deployed ${AzToken.target}`
   );
  
 }

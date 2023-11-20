@@ -1,7 +1,5 @@
 require("@nomicfoundation/hardhat-toolbox");
 require('dotenv').config();
-// require("@nomicfoundation/hardhat-ethers");
-// require("@nomiclabs/hardhat-etherscan");
 
 const {ALCHEMY_URL, PRIVATE_KEY, MATIC_MAINNET_URL, MAINNET_PRIVATE_KEY, POLYGONSCAN_API_KEY} = process.env;
 

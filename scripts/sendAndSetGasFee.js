@@ -1,8 +1,8 @@
 const hre = require("hardhat");
 
-const AzaTokenJson = require('../artifacts/contracts/AzaToken.sol/AzaToken.json');
+const AzTokenJson = require('../artifacts/contracts/AzToken.sol/AzToken.json');
 
-const abi = AzaTokenJson.abi;
+const abi = AzTokenJson.abi;
 
 async function main() {
     // Note: Use the correct network name in the provider configuration.
@@ -15,13 +15,13 @@ async function main() {
     const userWallet = new ethers.Wallet(process.env.PRIVATE_KEY, alchemy);
 
     // Get the deployed contract. We need both the specific CONTRACT_ADDRESS
-    const AzaToken = new ethers.Contract(
+    const AzToken = new ethers.Contract(
         process.env.CONTRACT_ADDRESS,  // Assuming CONTRACT_ADDRESS is set in your environment
         abi,
         userWallet
     );
 
-   const setTx1 = await AzaToken.send(process.env.SEND_HERE, 10);
+   const setTx1 = await AzToken.send(process.env.SEND_HERE, 10);
    const setTx1Response = await setTx1.wait();
 
    console.log("setTx1Response:", setTx1Response);
@@ -31,9 +31,9 @@ async function main() {
    console.log("Transaction Hash:", setTx1Response.hash);
    console.log("Gas Used:", setTx1Response.gasUsed.toString());
 
-    await AzaToken.setGasFee(7);
+    await AzToken.setGasFee(7);
  
-    const setTx3 = await AzaToken.getGasFee();
+    const setTx3 = await AzToken.getGasFee();
     console.log(`newly set gasFee: ${setTx3.toString()}`);
 }
 
